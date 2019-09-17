@@ -66,7 +66,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true }));
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
