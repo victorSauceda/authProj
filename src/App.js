@@ -1,58 +1,64 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 
 import './App.css';
-import axios from 'axios';
+
+import Login from './Login';
+import Register from './Register';
+
+
+
+
 
 
 class App extends Component {
   constructor(props) {
     super(props);
     // initialize state here
-    
+
     this.state = {
-      user:'',
-      // input:'',
-      // data:null
-      
+      pageSetter:false,
+      pageSetterLogin:false
+
+
+
+
     };
+    this.togglePage=this.togglePage.bind(this);
 
   }
-    handleChange(event){
-      this.setState({
-        user: event.target.value,
-        
-        });
-}
-handleSubmit(e) {
-  e.preventDefault();
-   
-  // On submit of the form, send a POST request with the data to the server.
-  axios.post('/user', {
-        name: this.state.user,
-    })
-    .then(function(response) {
-      if (response.status !== 200) {
-        //process error
-      }
-      //otherwise set some state to show hello
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
     });
-}
+  }
+
+  togglePage(val){
+    this.setState({pageSetter:val})
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+
+
+    // On submit of the form, send a POST request with the data to the server.
+
+  }
 
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-        <input type="text" value={this.state.user} onChange={this.handleChange.bind(this)}/>
-        <input type="submit" />
-        </form>
-        {/* <h1>Hello, {this.ref.name}</h1> */}
+        {this.state.pageSetter?<Register />:<Login />}
+        
+        {this.state.pageSetter?<button onClick={()=>this.togglePage(false)}>Login</button>:<button onClick={()=>this.togglePage(true)}>Register</button>}
         
       </div>
     );
   }
 
 }
+
 
 export default App;
